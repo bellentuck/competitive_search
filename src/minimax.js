@@ -154,19 +154,6 @@ const minimax = (state, depth, maximizingPlayer) => {
 
         // Reduce to further
         // invocations of minimax.
-        // depth = depth - 1;
-        // console.log('state', state);
-        // console.log('possible states', possibleStates);
-        // console.log('depth', depth);
-        // console.log('minimizingPlayer', minimizingPlayer);
-        // console.log('currentPlayer', currentPlayer);
-        console.log(state);
-        //return minimax(possibleStates[0], depth, state.)
-
-        // const advantages = possibleStates.map(state => {
-        //   return minimax(state, depth, currentPlayer);
-        // });
-        //console.log('advantage scores', advantages);
 
     }
 }
@@ -184,8 +171,55 @@ const minimaxAlphaBeta = (state, depth, maximizingPlayer) => {
 
         if (isBaseCase(state, depth)) {
             // Invoke heuristic
+            return heuristic(state, maximizingPlayer);
         } else {
+
+
+            const possibleStates = state.nextStates();
+            const minimizingPlayer = maximizingPlayer === 'x' ? 'o' : 'x';
+            const currentPlayer = state.nextMovePlayer;
+
+            depth--;
+
+            if (currentPlayer === minimizingPlayer) {
+                //want the smallest possibleState
+                return possibleStates.reduce((advantage, state) => {
+                    const newAdvantage = minimaxAlphaBeta(state, depth, maximizingPlayer);
+                    if (newAdvantage < advantage) advantage = newAdvantage;
+                    return advantage;
+                }, beta);
+
+            } else { // currentPlayer === maximizing player
+                return possibleStates.reduce((advantage, state) => {
+                    const newAdvantage = minimaxAlphaBeta(state, depth, maximizingPlayer);
+                    if (newAdvantage > advantage) advantage = newAdvantage;
+                    return advantage;
+                }, alpha);
+            }
+
             // Reduce further.
+            // const possibleStates = state.nextStates();
+            // const minimizingPlayer = maximizingPlayer === 'x' ? 'o' : 'x';
+            // const currentPlayer = state.nextMovePlayer;
+            // depth--;
+
+            // if (currentPlayer === minimizingPlayer) {
+            //     let alphaNew = minimax(state, depth, maximizingPlayer);
+            //     if (alpha > alphaNew) {
+            //         return alpha;
+            //     } else {
+            //         return alphaNew
+            //     }
+            // } else {
+            //     let alphaNew = minimax(state, depth, maximizingPlayer);
+            //     if (alpha > alphaNew) {
+            //         return alpha;
+            //     } else {
+            //         return alphaNew
+            //     }
+            // }
+
+            // return minimax(state, depth, maximizingPlayer)
         }
 	}
 

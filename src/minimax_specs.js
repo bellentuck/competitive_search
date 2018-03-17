@@ -140,8 +140,11 @@ describe('"isBaseCase" returns the correct values', function(){
 
 
 
-describe('"minimax" returns the correct values', function(){
+/// TESTING WITH MINIMAX
+// describe('"minimax" returns the correct values', function(){
 
+/// TESTING WITH MAB
+describe('"minimaxAlphaBeta" returns the correct values', function(){
 	/* The depth which is passed to the minimax function tells it how many
 	   layers down to go.
 
@@ -155,7 +158,8 @@ describe('"minimax" returns the correct values', function(){
 				s = s.move( Math.floor(Math.random() * s.width ) )
 			}
 			let heuristicValue = heuristic(s, 'x');
-			let minimaxValue = minimax(s, 0, 'x');
+			//let minimaxValue = minimax(s, 0, 'x');
+			let minimaxValue = minimaxAlphaBeta(s, 0, 'x');
 			expect(typeof heuristicValue == 'number').to.equal(true);
 			expect(typeof minimaxValue == 'number').to.equal(true);
 			expect(heuristicValue == minimaxValue).to.equal(true);
@@ -181,7 +185,8 @@ describe('"minimax" returns the correct values', function(){
 			s = s.move(5)
 			s = s.move(6)
 			let heuristicValue = heuristic(s, 'x');
-			let minimaxValue = minimax(s, 32, 'x');
+			// let minimaxValue = minimax(s, 32, 'x');
+			let minimaxValue = minimaxAlphaBeta(s, 32, 'x');
 			expect(typeof heuristicValue == 'number').to.equal(true);
 			expect(typeof minimaxValue == 'number').to.equal(true);
 			expect(heuristicValue == minimaxValue).to.equal(true);;
@@ -197,7 +202,8 @@ describe('"minimax" returns the correct values', function(){
 			for(var m = 0; m < 6; m++){
 				s = s.move(Math.floor(Math.random()*7));
 			}
-			let val = minimax(s, Math.floor(Math.random()*2), 'x');
+			// let val = minimax(s, Math.floor(Math.random()*2), 'x');
+			let val = minimaxAlphaBeta(s, Math.floor(Math.random()*2), 'x');
 			expect(typeof val == 'number').to.equal(true);;
 		}
 	});
@@ -208,8 +214,10 @@ describe('"minimax" returns the correct values', function(){
 
         let s = new State();
         s = s.move(2)
-        expect(minimax(s,1,'x')).to.equal(0);
-        expect(minimax(s,2,'x')).to.equal(10000);
+        // expect(minimax(s,1,'x')).to.equal(0);
+				// expect(minimax(s,2,'x')).to.equal(10000);
+				expect(minimaxAlphaBeta(s,1,'x')).to.equal(0);
+        expect(minimaxAlphaBeta(s,2,'x')).to.equal(10000);
 
 	});
 
@@ -222,8 +230,21 @@ describe('"minimax" returns the correct values', function(){
         s = s.move(3);
         s = s.move(3);
         s = s.move(4);
-        expect(minimax(s,1,'x')).to.equal(20000);
-        expect(minimax(s,2,'x')).to.equal(-20000);
+        // expect(minimax(s,1,'x')).to.equal(20000);
+				// expect(minimax(s,2,'x')).to.equal(-20000);
+				expect(minimaxAlphaBeta(s,1,'x')).to.equal(20000);
+        expect(minimaxAlphaBeta(s,2,'x')).to.equal(-20000);
 	});
 
 });
+
+
+// describe('minimaxAlphaBeta returns the correct values', function() {
+
+// 		/* The depth which is passed to the minimax function tells it how many
+// 	   layers down to go.
+
+// 	   So when it is called with a depth of zero, it should
+// 	   simply be calling the heuristic function and never call itself recursivly. */
+
+// });

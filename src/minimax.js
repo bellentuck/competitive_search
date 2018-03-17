@@ -122,8 +122,8 @@ const isBaseCase = (state, depth) => {
 const minimax = (state, depth, maximizingPlayer) => {
     if (isBaseCase(state, depth)) {
         // Invoke heuristic
-        // only need to store single abs val. we know what is better for who.
-        // const advantage =
+        // only need to get a single abs val;
+        // we know what is better for who.
         return heuristic(state, maximizingPlayer);
 
     } else {
@@ -131,13 +131,43 @@ const minimax = (state, depth, maximizingPlayer) => {
         // the same kind that gets passed into the "state"
         // paramter in minimax.
         const possibleStates = state.nextStates();
-        console.log(typeof state);
         const minimizingPlayer = maximizingPlayer === 'x' ? 'o' : 'x';
         const currentPlayer = state.nextMovePlayer;
+
+        depth--;
+
+        if (currentPlayer === minimizingPlayer) {
+            //want the smallest possibleState
+            return possibleStates.reduce((advantage, state) => {
+                const newAdvantage = minimax(state, depth, maximizingPlayer);
+                if (newAdvantage < advantage) advantage = newAdvantage;
+                return advantage;
+            }, Infinity);
+
+        } else { // currentPlayer === maximizing player
+            return possibleStates.reduce((advantage, state) => {
+                const newAdvantage = minimax(state, depth, maximizingPlayer);
+                if (newAdvantage > advantage) advantage = newAdvantage;
+                return advantage;
+            }, -Infinity);
+        }
+
         // Reduce to further
         // invocations of minimax.
-        depth++;
-        return minimax(possibleStates, depth, currentPlayer);
+        // depth = depth - 1;
+        // console.log('state', state);
+        // console.log('possible states', possibleStates);
+        // console.log('depth', depth);
+        // console.log('minimizingPlayer', minimizingPlayer);
+        // console.log('currentPlayer', currentPlayer);
+        console.log(state);
+        //return minimax(possibleStates[0], depth, state.)
+
+        // const advantages = possibleStates.map(state => {
+        //   return minimax(state, depth, currentPlayer);
+        // });
+        //console.log('advantage scores', advantages);
+
     }
 }
 

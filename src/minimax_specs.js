@@ -3,11 +3,11 @@ const minimaxLib = require('./minimax.js')
 const expect = require('chai').expect;
 
 const heuristic = minimaxLib.heuristic;
-const isBaseCase = minimaxLib.isBaseCase; 
+const isBaseCase = minimaxLib.isBaseCase;
 const minimax = minimaxLib.minimax;
 const minimaxAlphaBeta = minimaxLib.minimaxAlphaBeta;
 
-/* 
+/*
    A heuristic takes as input some particular game state.
    and outputs a number indicating how good / bad that state is.
 
@@ -25,7 +25,7 @@ const minimaxAlphaBeta = minimaxLib.minimaxAlphaBeta;
       who is trying to minimize.  This will either be an 'x' string
       or an 'o' string.
 
-      It will return a positive or negative number. 
+      It will return a positive or negative number.
  */
 describe("Testing some basic functionality for the heuristics", function(){
 
@@ -37,12 +37,12 @@ describe("Testing some basic functionality for the heuristics", function(){
 	});
 
 	/* Second, remember that the "maximizing player" and the "minimizing player"
-	   are only maximizing and minimizing players by convention.  They are a 
-	   feature of the map, and not the territory; of how we're looking at 
+	   are only maximizing and minimizing players by convention.  They are a
+	   feature of the map, and not the territory; of how we're looking at
 	   the game, and not the game itself.
 
 	   So if we switch the players, we should get exactly the same value, except
-	   multiplied by -1.*/ 
+	   multiplied by -1.*/
 
 	it("Returns the negative of the value for one player when maximizing player is switched", function(){
 		for(let x = 0; x < 100; x++){
@@ -54,9 +54,9 @@ describe("Testing some basic functionality for the heuristics", function(){
 		}
 	});
 
-	/* The rest of these all are basically checking to see if 
+	/* The rest of these all are basically checking to see if
 	   the program returns some kind of reasonable values in cases when, although
-	   there are equal numbers of pieces on the board, 'x' has more in a line 
+	   there are equal numbers of pieces on the board, 'x' has more in a line
 	   together than 'o' does. */
 	it("It returns a higher score when 'x' has two in a single line, and 'o' has two disconnected", function(){
 		//Make a new game state
@@ -109,7 +109,7 @@ describe("Testing some basic functionality for the heuristics", function(){
 
 describe('"isBaseCase" returns the correct values', function(){
 
-    it('Returns "true" when depth is zero, false otherwise', function(){
+    it.only('Returns "true" when depth is zero, false otherwise', function(){
         let s = new State();  //Make a new game state
         expect(isBaseCase(s, 0)).to.equal(true);
         expect(isBaseCase(s, 1)).to.equal(false);
@@ -142,7 +142,7 @@ describe('"isBaseCase" returns the correct values', function(){
 
 describe('"minimax" returns the correct values', function(){
 
-	/* The depth which is passed to the minimax function tells it how many 
+	/* The depth which is passed to the minimax function tells it how many
 	   layers down to go.
 
 	   So when it is called with a depth of zero, it should
@@ -169,8 +169,8 @@ describe('"minimax" returns the correct values', function(){
 	it('Returns simply the value of the heuristic function when there are no moves left to make', function(){
 		for(let x = 0; x < 5; x++){
 			//Make a new game state, with a board height of 1 so
-			//that s.nextStates or s.legalMoves returns an array 
-			//of length zero after we've filled the first 
+			//that s.nextStates or s.legalMoves returns an array
+			//of length zero after we've filled the first
 			//and last row entirely.
 			let s = new State({height: 1});
 			s = s.move(0)
@@ -201,19 +201,19 @@ describe('"minimax" returns the correct values', function(){
 			expect(typeof val == 'number').to.equal(true);;
 		}
 	});
-    
+
     /* This should pass if your logic is correct,
      * although reading this won't help you with the logic. */
 	it("Returns correct values for specific cases, starting in the beginning", function(){
-        
+
         let s = new State();
         s = s.move(2)
         expect(minimax(s,1,'x')).to.equal(0);
         expect(minimax(s,2,'x')).to.equal(10000);
 
 	});
-    
-    /* This should pass if your logic is correct, 
+
+    /* This should pass if your logic is correct,
      * although reading the spec probably won't
      * help you with the logic. */
     it("Returns correct values for specific cases, starting in the middle", function(){

@@ -3,7 +3,7 @@
  *
  * This is the only file you need
  * to modify to pass all tests.
- * 
+ *
  * Contents:
  * 1. minimaxWrapper: Pre-written
  * 2. heuristic: Pre-written
@@ -21,7 +21,7 @@
  *
  * To switch from playing against the
  * 'minimax' to 'minimaxAlphaBeta'
- * algorithm, swap them below.
+ * algorithm, swap them below. (on line 28)
  */
 const DEPTH = 3;
 const minimaxWrapper = (state, maximizingPlayer) =>
@@ -44,7 +44,7 @@ const minimaxWrapper = (state, maximizingPlayer) =>
  * Output:
  *  Number evaluating how good state is,
  *  from perspective of maximizing
- *  player.
+ *  player. (so, negative of this for minimizing player.)
  */
 const heuristic = (state, maximizingPlayer) => {
 
@@ -111,7 +111,7 @@ const minimax = (state, depth, maximizingPlayer) => {
     if (isBaseCase(state, depth)) {
         // Invoke heuristic
     } else {
-        // Possible states is an array of future states, of 
+        // Possible states is an array of future states, of
         // the same kind that gets passed into the "state"
         // paramter in minimax.
         const possibleStates = state.nextStates();
@@ -132,7 +132,7 @@ const minimax = (state, depth, maximizingPlayer) => {
 const minimaxAlphaBeta = (state, depth, maximizingPlayer) => {
 
 	const minimaxAlphaBetaInner = (state, depth, alpha, beta) => {
-        
+
         if (isBaseCase(state, depth)) {
             // Invoke heuristic
         } else {

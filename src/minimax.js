@@ -93,7 +93,13 @@ const heuristic = (state, maximizingPlayer) => {
 const isBaseCase = (state, depth) => {
     const possibleSuccessorStates = state.nextStates();
     const numberPossibleSuccessorStates = possibleSuccessorStates.length;
-    // Your code here.
+
+    //i.  'Returns "true" when depth is zero, false otherwise'
+    const depthIsZero = depth === 0;
+    //ii. 'Returns "true" when someone has won, false otherwise'
+    const someoneHasWon = numberPossibleSuccessorStates < depth;
+
+    return depthIsZero || someoneHasWon;
 }
 
 /*

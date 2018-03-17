@@ -141,7 +141,95 @@ describe('"isBaseCase" returns the correct values', function(){
 
 
 /// TESTING WITH MINIMAX
-// describe('"minimax" returns the correct values', function(){
+describe('"minimax" returns the correct values', function(){
+	/* The depth which is passed to the minimax function tells it how many
+	   layers down to go.
+
+	   So when it is called with a depth of zero, it should
+	   simply be calling the heuristic function and never call itself recursivly. */
+
+	it('Returns simply the value of the heuristic function when depth is set to 0', function(){
+		for(let x = 0; x < 10; x++){
+			let s = new State();  //Make a new game state
+			for(let z = 0; z < 7; z++){  //Make some random moves
+				s = s.move( Math.floor(Math.random() * s.width ) )
+			}
+			let heuristicValue = heuristic(s, 'x');
+			let minimaxValue = minimax(s, 0, 'x');
+			expect(typeof heuristicValue == 'number').to.equal(true);
+			expect(typeof minimaxValue == 'number').to.equal(true);
+			expect(heuristicValue == minimaxValue).to.equal(true);
+		}
+	});
+
+	/* When there are no more moves which can be made, then the
+	   minimax function should also return merely the value of the
+	   heuristic function, because there are no child states to
+	   call itself recursively on. */
+	it('Returns simply the value of the heuristic function when there are no moves left to make', function(){
+		for(let x = 0; x < 5; x++){
+			//Make a new game state, with a board height of 1 so
+			//that s.nextStates or s.legalMoves returns an array
+			//of length zero after we've filled the first
+			//and last row entirely.
+			let s = new State({height: 1});
+			s = s.move(0)
+			s = s.move(1)
+			s = s.move(2)
+			s = s.move(3)
+			s = s.move(4)
+			s = s.move(5)
+			s = s.move(6)
+			let heuristicValue = heuristic(s, 'x');
+			let minimaxValue = minimax(s, 32, 'x');
+			expect(typeof heuristicValue == 'number').to.equal(true);
+			expect(typeof minimaxValue == 'number').to.equal(true);
+			expect(heuristicValue == minimaxValue).to.equal(true);;
+		}
+	});
+
+
+    /* It returns numeric values when depth is involved */
+    it("Returns numeric values of some kind when there's depth involved", function(){
+
+		for(let x = 0; x < 3; x++){
+			let s = new State();
+			for(var m = 0; m < 6; m++){
+				s = s.move(Math.floor(Math.random()*7));
+			}
+			let val = minimax(s, Math.floor(Math.random()*2), 'x');
+			expect(typeof val == 'number').to.equal(true);;
+		}
+	});
+
+    /* This should pass if your logic is correct,
+     * although reading this won't help you with the logic. */
+	it("Returns correct values for specific cases, starting in the beginning", function(){
+
+        let s = new State();
+        s = s.move(2)
+        expect(minimax(s,1,'x')).to.equal(0);
+				expect(minimax(s,2,'x')).to.equal(10000);
+
+
+	});
+
+    /* This should pass if your logic is correct,
+     * although reading the spec probably won't
+     * help you with the logic. */
+    it("Returns correct values for specific cases, starting in the middle", function(){
+        let s = new State();
+        s = s.move(2);
+        s = s.move(3);
+        s = s.move(3);
+        s = s.move(4);
+        expect(minimax(s,1,'x')).to.equal(20000);
+				expect(minimax(s,2,'x')).to.equal(-20000);
+	});
+
+});
+
+
 
 /// TESTING WITH MAB
 describe('"minimaxAlphaBeta" returns the correct values', function(){
@@ -158,7 +246,6 @@ describe('"minimaxAlphaBeta" returns the correct values', function(){
 				s = s.move( Math.floor(Math.random() * s.width ) )
 			}
 			let heuristicValue = heuristic(s, 'x');
-			//let minimaxValue = minimax(s, 0, 'x');
 			let minimaxValue = minimaxAlphaBeta(s, 0, 'x');
 			expect(typeof heuristicValue == 'number').to.equal(true);
 			expect(typeof minimaxValue == 'number').to.equal(true);
@@ -185,7 +272,6 @@ describe('"minimaxAlphaBeta" returns the correct values', function(){
 			s = s.move(5)
 			s = s.move(6)
 			let heuristicValue = heuristic(s, 'x');
-			// let minimaxValue = minimax(s, 32, 'x');
 			let minimaxValue = minimaxAlphaBeta(s, 32, 'x');
 			expect(typeof heuristicValue == 'number').to.equal(true);
 			expect(typeof minimaxValue == 'number').to.equal(true);
@@ -202,7 +288,6 @@ describe('"minimaxAlphaBeta" returns the correct values', function(){
 			for(var m = 0; m < 6; m++){
 				s = s.move(Math.floor(Math.random()*7));
 			}
-			// let val = minimax(s, Math.floor(Math.random()*2), 'x');
 			let val = minimaxAlphaBeta(s, Math.floor(Math.random()*2), 'x');
 			expect(typeof val == 'number').to.equal(true);;
 		}
@@ -214,8 +299,6 @@ describe('"minimaxAlphaBeta" returns the correct values', function(){
 
         let s = new State();
         s = s.move(2)
-        // expect(minimax(s,1,'x')).to.equal(0);
-				// expect(minimax(s,2,'x')).to.equal(10000);
 				expect(minimaxAlphaBeta(s,1,'x')).to.equal(0);
         expect(minimaxAlphaBeta(s,2,'x')).to.equal(10000);
 
@@ -230,8 +313,6 @@ describe('"minimaxAlphaBeta" returns the correct values', function(){
         s = s.move(3);
         s = s.move(3);
         s = s.move(4);
-        // expect(minimax(s,1,'x')).to.equal(20000);
-				// expect(minimax(s,2,'x')).to.equal(-20000);
 				expect(minimaxAlphaBeta(s,1,'x')).to.equal(20000);
         expect(minimaxAlphaBeta(s,2,'x')).to.equal(-20000);
 	});

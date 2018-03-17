@@ -91,13 +91,7 @@ const heuristic = (state, maximizingPlayer) => {
  *
  */
 const isBaseCase = (state, depth) => {
-    const possibleSuccessorStates = state.nextStates(); //(); // for some reason this alone stops working
-    // const possibleSuccessorStates = (function(){
-    //     let result;
-    //     try { result = state.nextStates() }
-    //     catch (e) { result = state.nextStates }
-    //     return result;
-    // })() || [];
+    const possibleSuccessorStates = state.nextStates();
     const numberPossibleSuccessorStates = possibleSuccessorStates.length;
 
     //i.  'Returns "true" when depth is zero, false otherwise'
@@ -127,10 +121,15 @@ const minimax = (state, depth, maximizingPlayer) => {
         return heuristic(state, maximizingPlayer);
 
     } else {
+
+        // Reduce to further
+        // invocations of minimax.
+
         // Possible states is an array of future states, of
         // the same kind that gets passed into the "state"
         // paramter in minimax.
         const possibleStates = state.nextStates();
+
         const minimizingPlayer = maximizingPlayer === 'x' ? 'o' : 'x';
         const currentPlayer = state.nextMovePlayer;
 
@@ -151,10 +150,6 @@ const minimax = (state, depth, maximizingPlayer) => {
                 return advantage;
             }, -Infinity);
         }
-
-        // Reduce to further
-        // invocations of minimax.
-
     }
 }
 
@@ -173,6 +168,7 @@ const minimaxAlphaBeta = (state, depth, maximizingPlayer) => {
             // Invoke heuristic
             return heuristic(state, maximizingPlayer);
         } else {
+
             // Reduce further.
 
             const possibleStates = state.nextStates();

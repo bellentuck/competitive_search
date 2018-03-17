@@ -148,7 +148,7 @@ describe('"minimax" returns the correct values', function(){
 	   So when it is called with a depth of zero, it should
 	   simply be calling the heuristic function and never call itself recursivly. */
 
-	it.only('Returns simply the value of the heuristic function when depth is set to 0', function(){
+	it('Returns simply the value of the heuristic function when depth is set to 0', function(){
 		for(let x = 0; x < 10; x++){
 			let s = new State();  //Make a new game state
 			for(let z = 0; z < 7; z++){  //Make some random moves

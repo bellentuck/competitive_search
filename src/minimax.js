@@ -91,7 +91,13 @@ const heuristic = (state, maximizingPlayer) => {
  *
  */
 const isBaseCase = (state, depth) => {
-    const possibleSuccessorStates = state.nextStates();
+    const possibleSuccessorStates = state.nextStates(); //(); // for some reason this alone stops working
+    // const possibleSuccessorStates = (function(){
+    //     let result;
+    //     try { result = state.nextStates() }
+    //     catch (e) { result = state.nextStates }
+    //     return result;
+    // })() || [];
     const numberPossibleSuccessorStates = possibleSuccessorStates.length;
 
     //i.  'Returns "true" when depth is zero, false otherwise'
@@ -116,15 +122,22 @@ const isBaseCase = (state, depth) => {
 const minimax = (state, depth, maximizingPlayer) => {
     if (isBaseCase(state, depth)) {
         // Invoke heuristic
+        // only need to store single abs val. we know what is better for who.
+        // const advantage =
+        return heuristic(state, maximizingPlayer);
+
     } else {
         // Possible states is an array of future states, of
         // the same kind that gets passed into the "state"
         // paramter in minimax.
         const possibleStates = state.nextStates();
+        console.log(typeof state);
         const minimizingPlayer = maximizingPlayer === 'x' ? 'o' : 'x';
         const currentPlayer = state.nextMovePlayer;
         // Reduce to further
         // invocations of minimax.
+        depth++;
+        return minimax(possibleStates, depth, currentPlayer);
     }
 }
 
@@ -156,3 +169,4 @@ module.exports = {
     isBaseCase,
     heuristic
 };
+

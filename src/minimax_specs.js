@@ -237,14 +237,3 @@ describe('"minimaxAlphaBeta" returns the correct values', function(){
 	});
 
 });
-
-
-// describe('minimaxAlphaBeta returns the correct values', function() {
-
-// 		/* The depth which is passed to the minimax function tells it how many
-// 	   layers down to go.
-
-// 	   So when it is called with a depth of zero, it should
-// 	   simply be calling the heuristic function and never call itself recursivly. */
-
-// });

@@ -173,7 +173,7 @@ const minimaxAlphaBeta = (state, depth, maximizingPlayer) => {
             // Invoke heuristic
             return heuristic(state, maximizingPlayer);
         } else {
-
+            // Reduce further.
 
             const possibleStates = state.nextStates();
             const minimizingPlayer = maximizingPlayer === 'x' ? 'o' : 'x';
@@ -196,30 +196,6 @@ const minimaxAlphaBeta = (state, depth, maximizingPlayer) => {
                     return advantage;
                 }, alpha);
             }
-
-            // Reduce further.
-            // const possibleStates = state.nextStates();
-            // const minimizingPlayer = maximizingPlayer === 'x' ? 'o' : 'x';
-            // const currentPlayer = state.nextMovePlayer;
-            // depth--;
-
-            // if (currentPlayer === minimizingPlayer) {
-            //     let alphaNew = minimax(state, depth, maximizingPlayer);
-            //     if (alpha > alphaNew) {
-            //         return alpha;
-            //     } else {
-            //         return alphaNew
-            //     }
-            // } else {
-            //     let alphaNew = minimax(state, depth, maximizingPlayer);
-            //     if (alpha > alphaNew) {
-            //         return alpha;
-            //     } else {
-            //         return alphaNew
-            //     }
-            // }
-
-            // return minimax(state, depth, maximizingPlayer)
         }
 	}
 
